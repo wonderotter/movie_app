@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import axios from 'axios';
 
 class App extends React.Component {
   state = {
@@ -7,11 +7,15 @@ class App extends React.Component {
     movies : []
   };
 
-  //처음 render될 때 호출
+  //async : 비동기(좀 기다려야 한다는 걸 의미) await : 어떤걸 기다려야할지 표시하는것
+  getMovies = async() => {
+    //await axios가 끝날때까지 기다린다
+    const movies = await axios.get('https://yts.lt/api/v2/list_movies.json?genre=Animation&sort_by=download_count'); 
+  }
+
+  //처음 render() 함수 호출 뒤 실행
   componentDidMount() {
-    setTimeout( () => {
-      this.setState({ isLoading : false })
-    }, 5000);
+    this.getMovies();
   }
 
   render() {
