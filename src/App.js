@@ -3,6 +3,7 @@ import axios from 'axios';
 import Movie from './Movie';
 import './App.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { HashRouter } from 'react-router-dom';
 
 class App extends React.Component {
   state = {
@@ -32,16 +33,18 @@ class App extends React.Component {
     const { isLoading, movies } = this.state;
 
     return(
-      <section className="container">
-        {isLoading ? 
-        <div className="loader">
-          <span className="loader__text">Loading...</span>
-          <CircularProgress/>
-        </div> : 
-      <div className="movies">
-        {this.showMovies(movies)}
-      </div> }
-      </section>
+      <HashRouter basename="/">
+        <section className="container">
+          {isLoading ? 
+          <div className="loader">
+            <span className="loader__text">Loading...</span>
+            <CircularProgress/>
+          </div> : 
+        <div className="movies">
+          {this.showMovies(movies)}
+        </div> }
+        </section>
+      </HashRouter>
     )
   }
 }
