@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Movie from './Movie';
+import './App.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class App extends React.Component {
   state = {
@@ -10,7 +12,7 @@ class App extends React.Component {
 
   showMovies = (movies) => {
     return movies.map(el=>{
-      return <Movie key={el.id} id={el.id} year={el.year} title={el.title} summary={el.summary} poster={el.medium_cover_image} />
+      return <Movie key={el.id} id={el.id} year={el.year} title={el.title} summary={el.summary} poster={el.medium_cover_image} genres={el.genres} />
     });
   }
 
@@ -30,9 +32,16 @@ class App extends React.Component {
     const { isLoading, movies } = this.state;
 
     return(
-      <div>
-        <h1>{isLoading ? 'Loding...' : this.showMovies(movies) }</h1>
-      </div>
+      <section className="container">
+        {isLoading ? 
+        <div className="loader">
+          <span className="loader__text">Loading...</span>
+          <CircularProgress/>
+        </div> : 
+      <div className="movies">
+        {this.showMovies(movies)}
+      </div> }
+      </section>
     )
   }
 }
